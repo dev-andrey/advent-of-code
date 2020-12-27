@@ -19,12 +19,10 @@ def memo[K, V](f: K => V): K => V = {
   k => cache.getOrElseUpdate(k, f(k))
 }
 
-lazy val combos: ((Int, Set[Int])) => Long = memo[(Int, Set[Int]), Long] {
-  case curr -> _ if curr == maxAdapter   => 1L
-  case _ -> adapters if adapters.isEmpty => 0L
-  case curr -> adapters =>
-    (if (adapters.contains(curr + 3)) combos(curr + 3, adapters.dropWhile(_ <= curr + 3)) else 0L) +
-      (if (adapters.contains(curr + 2)) combos(curr + 2, adapters.dropWhile(_ <= curr + 2)) else 0L) +
-      (if (adapters.contains(curr + 1)) combos(curr + 1, adapters.dropWhile(_ <= curr + 1)) else 0L)
+val adapters = input.sorted
+lazy val find: Int => Long = memo {
+  case current if current == maxAdapter => 1L
+  case current                          => adapters.filter(a => a > current && a <= current + 3).map(find).sum
 }
-combos(0, input.toSet)
+
+find(0)
