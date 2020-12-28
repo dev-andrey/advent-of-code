@@ -27,6 +27,8 @@ scala/
 +--project/                  The rest of the sbt build
 +--src/main/                 
    +---/resources
-       +---advent2020        Input files for the challenge
-   +---/advent2020           Source code for each challenge    
+       +---advent2015        Input files for 2015 challenge 
+       +---advent2020        Input files for 2020 challenge
+   +---/advent2015           Source code for 2015 challenge
+   +---/advent2020           Source code for 2020 challenge    
 ```                    
