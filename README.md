@@ -29,6 +29,8 @@ scala/
    +---/resources
        +---advent2015        Input files for 2015 challenge 
        +---advent2020        Input files for 2020 challenge
+       +---advent2021        Input files for 2021 challenge
    +---/advent2015           Source code for 2015 challenge
    +---/advent2020           Source code for 2020 challenge    
+   +---/advent2021           Source code for 2021 challenge    
 ```                    
