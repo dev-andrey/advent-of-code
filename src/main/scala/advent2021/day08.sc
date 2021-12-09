@@ -5,6 +5,21 @@ val input = raw
   .map(line => (line.head.split(' ').toList, line.last.split(' ').toList))
   .toList
 
+// Part 1
+input.foldLeft(0) { case (total, (signal, output)) =>
+  output
+    .groupMapReduce(identity)(_ => 1)(_ + _)
+    .collect {
+      case one -> count if one.length == 2     => one   -> count
+      case four -> count if four.length == 4   => four  -> count
+      case seven -> count if seven.length == 3 => seven -> count
+      case eight -> count if eight.length == 7 => eight -> count
+    }
+    .values
+    .sum + total
+}
+
+// Part 2
 def decode(signals: List[String], outputs: List[String]): Int = {
   val evidence = signals.map(_.toSet) ++ outputs.map(_.toSet)
 
