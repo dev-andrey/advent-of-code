@@ -24,7 +24,7 @@ actions
   .size
 
 // part 2
-val folded = actions.foldLeft(locs) {
+val foldedPaper = actions.foldLeft(locs) {
   case (folded, ("y", offset)) =>
     folded.map {
       case (x, y) if y > offset => (x, offset - (y - offset))
@@ -41,7 +41,7 @@ val folded = actions.foldLeft(locs) {
   y <- 0 to 5
   x <- 0 to 40
 } yield (x, y)).foreach { case (x, y) =>
-  if (folded.contains((x, y))) print('#')
+  if (foldedPaper.contains((x, y))) print('#')
   else print(' ')
   if (x == 40) print('\n')
 }
