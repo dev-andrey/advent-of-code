@@ -2,7 +2,8 @@ val input    = scala.io.Source.fromResource(s"advent2020/day13.txt").getLines().
 val now      = input.head.toInt
 var schedule = input.last.split(',')
 
-schedule.collect { case bus if bus != "x" => bus.toInt }
+schedule
+  .collect { case bus if bus != "x" => bus.toInt }
   .map(bus => (now - (now / bus * bus + bus), bus))
   .map { case (wait, bus) => (wait.abs, bus, wait.abs * bus) }
   .sortBy(_._1)

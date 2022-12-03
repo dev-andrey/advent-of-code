@@ -1,8 +1,7 @@
 val input = scala.io.Source.fromResource(s"advent2020/day10.txt").getLines().map(_.toInt).toVector
 
 val maxAdapter = input.max
-input
-  .sorted
+input.sorted
   .prepended(0)
   .appended(maxAdapter + 3)
   .sliding(2)

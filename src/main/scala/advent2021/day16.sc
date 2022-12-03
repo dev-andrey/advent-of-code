@@ -63,7 +63,6 @@ def decode(idx: Int, lastIdx: Int, packets: Vector[Packet], maxCount: Int): (Vec
 
 val (packets, _) = decode(0, input.length - 1, Vector(), Int.MaxValue)
 
-
 def sumVersions(packet: Packet): Int =
   packet match {
     case Packet.Num(ver, _, _)      => ver

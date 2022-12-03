@@ -2,8 +2,7 @@ val input = scala.io.Source.fromResource(s"advent2020/day17.txt").getLines()
 
 final case class Coord3D(x: Int, y: Int, z: Int)
 
-val (active, inactive) = input
-  .zipWithIndex
+val (active, inactive) = input.zipWithIndex
   .foldLeft((Set.empty[Coord3D], Set.empty[Coord3D])) { case ((active, inactive), (row, y)) =>
     (
       active ++ row.zipWithIndex.collect { case '#' -> x => Coord3D(x, y, 0) },
@@ -48,5 +47,3 @@ def cycle(remain: Int, active: Set[Coord3D], inactive: Set[Coord3D]): Set[Coord3
   }
 
 cycle(6, active, inactive ++ expand(active ++ inactive)).size
-
-

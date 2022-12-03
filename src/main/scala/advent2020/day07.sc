@@ -5,8 +5,7 @@ val rules = input.flatMap { line =>
   line match {
     case rule(bag, content) =>
       Map(
-        bag.trim -> "(\\d+ \\w+ \\w+)"
-          .r
+        bag.trim -> "(\\d+ \\w+ \\w+)".r
           .findAllMatchIn(content)
           .map(_.matched)
           .map(b => b.dropWhile(_.isDigit).trim -> b.takeWhile(_.isDigit).toInt)
@@ -26,7 +25,7 @@ def findContainer(search: Vector[String], containers: Set[String] = Set()): Set[
   if (search.isEmpty) containers
   else
     containMap.get(search.head) match {
-      case None => findContainer(search.tail, containers)
+      case None       => findContainer(search.tail, containers)
       case Some(bags) => findContainer(search.tail ++ bags, containers ++ bags)
     }
 

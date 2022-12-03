@@ -5,8 +5,7 @@ input.foldLeft((0, 0)) { case (result, position) -> row =>
 }
 
 def countTrees(rightBy: Int, downBy: Int): Int =
-  input
-    .zipWithIndex
+  input.zipWithIndex
     .filter { case (_, idx) =>
       downBy == 1 || (idx % 2 == 0)
     }

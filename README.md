@@ -5,7 +5,7 @@ using [Scala](https://www.scala-lang.org)
 
 ### Approach
 
-I'm using functional approach for each solution. Which means:
+I'm using a functional approach for each solution. Which means:
 
 1. avoiding `null`
 1. pure functions
@@ -19,6 +19,8 @@ I'm using functional approach for each solution. Which means:
 
 I'm using [IntelliJ IDEA](https://www.jetbrains.com/idea/) running scala worksheets
 
+** Note: in order for a worksheet to execute, you need to enable build before run
+
 # Repository structure
 
 ```
@@ -30,7 +32,9 @@ scala/
        +---advent2015        Input files for 2015 challenge 
        +---advent2020        Input files for 2020 challenge
        +---advent2021        Input files for 2021 challenge
+       +---advent2022        Input files for 2022 challenge
    +---/advent2015           Source code for 2015 challenge
    +---/advent2020           Source code for 2020 challenge    
    +---/advent2021           Source code for 2021 challenge    
+   +---/advent2022           Source code for 2022 challenge    
 ```                    

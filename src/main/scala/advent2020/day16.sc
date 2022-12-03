@@ -60,6 +60,7 @@ def deduce(facts: Map[String, Int], unknown: Map[Set[String], Int]): Map[String,
     )
   }
 
-deduce(Map.empty[String, Int], guesses).collect { case (name, idx) if name.startsWith("departure") => myTicket(idx) }
+deduce(Map.empty[String, Int], guesses)
+  .collect { case (name, idx) if name.startsWith("departure") => myTicket(idx) }
   .map(_.toLong)
   .product

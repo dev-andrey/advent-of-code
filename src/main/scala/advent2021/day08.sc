@@ -54,18 +54,8 @@ def decode(signals: List[String], outputs: List[String]): Int = {
   val _2          = _8 diff topLeft diff bottomRight
   val _3          = _8 diff topLeft diff bottomLeft
 
-  val code = Map(
-    _0 -> '0',
-    _1 -> '1',
-    _2 -> '2',
-    _3 -> '3',
-    _4 -> '4',
-    _5 -> '5',
-    _6 -> '6',
-    _7 -> '7',
-    _8 -> '8',
-    _9 -> '9'
-  )
+  val code =
+    Map(_0 -> '0', _1 -> '1', _2 -> '2', _3 -> '3', _4 -> '4', _5 -> '5', _6 -> '6', _7 -> '7', _8 -> '8', _9 -> '9')
 
   outputs.map(output => code(output.toSet)).mkString.toInt
 }

@@ -7,7 +7,7 @@ def execute(idx: Int = 0, seen: Set[Int] = Set(), acc: Int = 0): Int =
   if (seen.contains(idx)) acc
   else
     input(idx) match {
-      case instr("nop", _, _) => execute(idx + 1, seen + idx, acc)
+      case instr("nop", _, _)        => execute(idx + 1, seen + idx, acc)
       case instr("jmp", "+", offset) => execute(idx + offset.toInt, seen + idx, acc)
       case instr("jmp", "-", offset) => execute(idx - offset.toInt, seen + idx, acc)
       case instr("acc", "+", offset) => execute(idx + 1, seen + idx, acc + offset.toInt)

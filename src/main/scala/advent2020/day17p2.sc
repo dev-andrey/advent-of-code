@@ -2,8 +2,7 @@ val input = scala.io.Source.fromResource(s"advent2020/day17.txt").getLines()
 
 final case class Coord4D(x: Int, y: Int, z: Int, w: Int)
 
-val (active, inactive) = input
-  .zipWithIndex
+val (active, inactive) = input.zipWithIndex
   .foldLeft((Set.empty[Coord4D], Set.empty[Coord4D])) { case ((active, inactive), (row, y)) =>
     (
       active ++ row.zipWithIndex.collect { case '#' -> x => Coord4D(x, y, 0, 0) },
@@ -21,8 +20,7 @@ def neighbors(coord: Coord4D): Set[Coord4D] = {
 }.filter(_ != coord).toSet
 
 def neighbors2(coord: Vector[Int]): Set[Vector[Int]] =
-  coord
-    .indices
+  coord.indices
     .foldLeft(Set(coord)) { case out -> idx =>
       out.flatMap(vec => Vector(-1, 0, 1).map(offset => vec.updated(idx, vec(idx) + offset)))
     }
@@ -40,10 +38,7 @@ def expand(everything: Set[Coord4D]): Set[Coord4D] = {
 def expand2(universe: Set[Vector[Int]]): Set[Vector[Int]] =
   universe.foldLeft((Vector.fill(universe.head.size)(0), Vector.fill(universe.head.size)(0))) {
     case (min, max) -> coord =>
-      (
-        (min zip coord).map { case (m, c) => m min c },
-        (max zip coord).map { case (m, c) => m max c }
-      )
+      ((min zip coord).map { case (m, c) => m min c }, (max zip coord).map { case (m, c) => m max c })
   } match {
     case (minCoord, maxCoord) => ???
   }

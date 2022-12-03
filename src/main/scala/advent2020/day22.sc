@@ -19,11 +19,7 @@ val score = play(p1deck, p2deck)
 
 score.reverse.zipWithIndex.map { case (card, idx) => card * (idx + 1) }.sum
 
-def recursiveCombat(
-  deck1: List[Int],
-  deck2: List[Int],
-  played: Set[(List[Int], List[Int])]
-): (List[Int], List[Int]) =
+def recursiveCombat(deck1: List[Int], deck2: List[Int], played: Set[(List[Int], List[Int])]): (List[Int], List[Int]) =
   if (played.contains((deck1, deck2))) (deck1, Nil)
   else
     (deck1, deck2) match {

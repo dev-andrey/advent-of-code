@@ -33,8 +33,7 @@ def enhance(cycle: Int, minX: Int, minY: Int, maxX: Int, maxY: Int, pixels: Set[
     val updated = for {
       y <- minY - 2 to maxY + 2
       x <- minX - 2 to maxX + 2
-      if Pixel(x, y)
-        .surround
+      if Pixel(x, y).surround
         .map(px => if (isPixelLight(px)) '1' else '0')
         .mkString
         .pipe(binary => Integer.parseInt(binary, 2))

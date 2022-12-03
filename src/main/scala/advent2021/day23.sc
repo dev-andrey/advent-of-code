@@ -21,12 +21,7 @@ final case class Pod(loc: Loc, price: Int) { self =>
   def inHall: Boolean = !inRoom
 
 }
-val destMap = Map(
-  2 -> 'A',
-  4 -> 'B',
-  6 -> 'C',
-  8 -> 'D'
-)
+val destMap = Map(2 -> 'A', 4 -> 'B', 6 -> 'C', 8 -> 'D')
 
 final case class Game(pods: Set[Pod], total: Int, depth: Int) { self =>
   def hasAllInPlace: Boolean =

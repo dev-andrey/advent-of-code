@@ -157,11 +157,13 @@ final case class Image(get: (Int, Int) => Char) { self =>
   override def toString = prettyPrint
 
   def prettyPrint: String =
-    (0 until tilePerRow * 8).map { y =>
-      (0 until tilePerRow * 8).map { x =>
-        get(x, y)
-      }.mkString
-    }.mkString("\n")
+    (0 until tilePerRow * 8)
+      .map { y =>
+        (0 until tilePerRow * 8).map { x =>
+          get(x, y)
+        }.mkString
+      }
+      .mkString("\n")
 }
 
 val img = Image((x, y) => removedBorders(y)(x))

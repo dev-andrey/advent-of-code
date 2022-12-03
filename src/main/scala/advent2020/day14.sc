@@ -17,10 +17,7 @@ input
     case (mem, mask) -> line =>
       line match {
         case instr(addr, value) =>
-          (
-            mem + (addr.toInt -> decodeValue(value.toLong.toBinaryString, mask)),
-            mask
-          )
+          (mem + (addr.toInt -> decodeValue(value.toLong.toBinaryString, mask)), mask)
       }
   }
   ._1
@@ -44,10 +41,7 @@ input
     case (mem, mask) -> line =>
       line match {
         case instr(addr, value) =>
-          (
-            mem ++ decodeMemory(addr.toLong.toBinaryString, mask).map(_ -> value.toLong),
-            mask
-          )
+          (mem ++ decodeMemory(addr.toLong.toBinaryString, mask).map(_ -> value.toLong), mask)
       }
   }
   ._1

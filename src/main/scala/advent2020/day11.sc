@@ -46,18 +46,20 @@ def part2(state: Vector[Vector[Char]]): Vector[Vector[Char]] = {
       else if (state(y)(x) == '#') true
       else isOccupiedVisible(offset)(x + offset._1, y + offset._2)
 
-    List((x, y)).flatMap { case (x, y) =>
-      List(
-        isOccupiedVisible((-1, 0))(x - 1, y),      // left
-        isOccupiedVisible((-1, -1))(x - 1, y - 1), // top-left
-        isOccupiedVisible((0, -1))(x, y - 1),      // top
-        isOccupiedVisible((1, -1))(x + 1, y - 1),  // top-right
-        isOccupiedVisible((1, 0))(x + 1, y),       // right
-        isOccupiedVisible((1, 1))(x + 1, y + 1),   // bottom-right
-        isOccupiedVisible((0, 1))(x, y + 1),       // bottom
-        isOccupiedVisible((-1, 1))(x - 1, y + 1)   // bottom-left
-      )
-    }.count(_ == true)
+    List((x, y))
+      .flatMap { case (x, y) =>
+        List(
+          isOccupiedVisible((-1, 0))(x - 1, y),      // left
+          isOccupiedVisible((-1, -1))(x - 1, y - 1), // top-left
+          isOccupiedVisible((0, -1))(x, y - 1),      // top
+          isOccupiedVisible((1, -1))(x + 1, y - 1),  // top-right
+          isOccupiedVisible((1, 0))(x + 1, y),       // right
+          isOccupiedVisible((1, 1))(x + 1, y + 1),   // bottom-right
+          isOccupiedVisible((0, 1))(x, y + 1),       // bottom
+          isOccupiedVisible((-1, 1))(x - 1, y + 1)   // bottom-left
+        )
+      }
+      .count(_ == true)
   }
 
   val nextState = (0 to maxY).foldLeft(Vector.empty[Vector[Char]]) { case output -> y =>

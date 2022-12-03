@@ -1,17 +1,16 @@
 val input = scala.io.Source.fromResource(s"advent2020/day21.txt").getLines()
 
 val food = input.map { line =>
-  (
-    line.takeWhile(_ != '(').split(' '),
-    line.dropWhile(_ != '(').drop(9).dropRight(1).split(',').map(_.trim)
-  )
+  (line.takeWhile(_ != '(').split(' '), line.dropWhile(_ != '(').drop(9).dropRight(1).split(',').map(_.trim))
 }.toList
 
 val ingredients = food.flatMap(_._1).groupMapReduce(identity)(_ => 1)(_ + _)
 
-val guesses = food.flatMap { case (ingredients, allergens) =>
-  allergens.map(al => al -> ingredients.toSet)
-}.groupMapReduce(_._1)(combo => combo._2)(_ intersect _)
+val guesses = food
+  .flatMap { case (ingredients, allergens) =>
+    allergens.map(al => al -> ingredients.toSet)
+  }
+  .groupMapReduce(_._1)(combo => combo._2)(_ intersect _)
 
 @annotation.tailrec
 def guess(facts: Map[String, String], unknown: Map[String, Set[String]]): Map[String, String] =

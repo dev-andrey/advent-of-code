@@ -66,8 +66,7 @@ fill(
   remaining = lowestPoints.toList,
   edges = lowestPoints.map(loc => loc -> Set(loc)).toMap,
   basins = lowestPoints.map(loc => loc -> Set.empty[Loc]).toMap
-)
-  .values
+).values
   .map(_.size)
   .toVector
   .sorted

@@ -57,8 +57,7 @@ def find(analyzed: Set[Loc], riskVector: Vector[(Loc, Int)])(gameMap: GameMap): 
       .toMap
     println(updatedRisks)
 
-    val updatedVector = riskVector
-      .tail
+    val updatedVector = riskVector.tail
       .map { case (loc, rsk) =>
         if (updatedRisks(loc) < rsk)
           (loc, updatedRisks(loc))
@@ -72,7 +71,7 @@ def find(analyzed: Set[Loc], riskVector: Vector[(Loc, Int)])(gameMap: GameMap): 
   }
 }
 
-find(Set(), Vector((baseStart -> 0)))(GameMap(Loc(maxCol - 1, maxRow - 1), input))
+find(Set(), Vector(baseStart -> 0))(GameMap(Loc(maxCol - 1, maxRow - 1), input))
 
 //find(Set(), Map(baseStart -> 0))(GameMap(Loc(maxCol * 5 - 1, maxRow * 5 - 1), input))
 

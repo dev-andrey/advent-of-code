@@ -12,7 +12,7 @@ input
 
     decode(rowCode, 127) * 8 + decode(seatCode, 7)
   }
-  //.max
+  // .max
   .sorted
   .sliding(2)
   .find(_.reduce(_ - _).abs > 1)

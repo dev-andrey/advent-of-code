@@ -1,7 +1,7 @@
 val input = scala.io.Source.fromResource(s"advent2020/day04.txt").getLines()
 
-val required = Set("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid")
-val optional = Set("cid")
+val required       = Set("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid")
+val optional       = Set("cid")
 val validEyeColors = Set("amb", "blu", "brn", "gry", "grn", "hzl", "oth")
 input
   .foldLeft(List(Map.empty[String, String])) {
@@ -22,7 +22,7 @@ input
       hgt.takeWhile(_.isDigit).toInt match {
         case height if hgt.contains("cm") => height >= 150 && height <= 193
         case height if hgt.contains("in") => height >= 59 && height <= 76
-        case _ => false
+        case _                            => false
       }
     )
   }
