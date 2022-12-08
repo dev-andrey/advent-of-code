@@ -27,4 +27,4 @@ def scenicScore(tree: (Loc, Int)): Int = {
   left * top * right * bottom
 }
 
-forest.filter(isVisible).map(scenicScore).max
+forest.filter(isVisible).maxBy(scenicScore)
