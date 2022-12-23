@@ -42,6 +42,8 @@ final case class Human(loc: Loc, facing: Facing) { self =>
 val startY = 0
 val startX = openings.filter(_.y == startY).minBy(_.x).x
 
+val grid = walls ++ openings
+
 def follow(human: Human, path: String, move: (Human, Int) => Human): Human =
   if (path.isEmpty) human
   else if (path.head == 'R') follow(human.turnRight, path.tail, move)
@@ -50,31 +52,24 @@ def follow(human: Human, path: String, move: (Human, Int) => Human): Human =
 
 // part 1
 def moving2d(human: Human, steps: Int): Human = {
-  def up(loc: Loc) =
-    if (openings.contains(loc.up) || walls.contains(loc.up)) loc.up
-    else loc.copy(y = (walls ++ openings).filter(_.x == loc.x).maxBy(_.y).y)
+  val Human(loc @ Loc(x, y), facing) = human
 
-  def right(loc: Loc) =
-    if (openings.contains(loc.right) || walls.contains(loc.right)) loc.right
-    else loc.copy(x = (walls ++ openings).filter(_.y == loc.y).minBy(_.x).x)
+  val newHuman = facing match {
+    case Facing.Right if !grid(loc.right) => Human(loc.copy(x = grid.filter(_.y == loc.y).minBy(_.x).x), facing)
+    case Facing.Right                     => Human(loc.right, facing)
 
-  def down(loc: Loc) =
-    if (openings.contains(loc.down) || walls.contains(loc.down)) loc.down
-    else loc.copy(y = (walls ++ openings).filter(_.x == loc.x).minBy(_.y).y)
+    case Facing.Down if !grid(loc.down) => Human(loc.copy(y = grid.filter(_.x == loc.x).minBy(_.y).y), facing)
+    case Facing.Down                    => Human(loc.down, facing)
 
-  def left(loc: Loc) =
-    if (openings.contains(loc.left) || walls.contains(loc.left)) loc.left
-    else loc.copy(x = (walls ++ openings).filter(_.y == loc.y).maxBy(_.x).x)
+    case Facing.Left if !grid(loc.left) => Human(loc.copy(x = grid.filter(_.y == loc.y).maxBy(_.x).x), facing)
+    case Facing.Left                    => Human(loc.left, facing)
 
-  val newLoc = human.facing match {
-    case Facing.Up    => up(human.loc)
-    case Facing.Right => right(human.loc)
-    case Facing.Down  => down(human.loc)
-    case Facing.Left  => left(human.loc)
+    case Facing.Up if !grid(loc.up) => Human(loc.copy(y = grid.filter(_.x == loc.x).maxBy(_.y).y), facing)
+    case Facing.Up                  => Human(loc.up, facing)
   }
 
-  if (steps == 0 || walls.contains(newLoc)) human
-  else moving2d(human.copy(loc = newLoc), steps - 1)
+  if (steps == 0 || walls.contains(newHuman.loc)) human
+  else moving2d(newHuman, steps - 1)
 }
 
 follow(Human(Loc(startX, startY), Facing.Right), path, moving2d) match {
@@ -110,11 +105,10 @@ def moving3d(human: Human, steps: Int): Human = {
     case Facing.Up if y == 100 && x >= 0 && x < 50  => Human(Loc(50, 50 + x), Facing.Right)
     case Facing.Up if y == 0 && x >= 100 && x < 150 => Human(Loc(x - 100, 200 - 1), Facing.Up)
     case Facing.Up                                  => Human(loc.up, facing)
-
   }
 
   // useful during debugging:
-  if (!(walls ++ openings).contains(newHuman.loc)) throw new RuntimeException(s"BAD $human -> $newHuman")
+  if (!grid(newHuman.loc)) throw new RuntimeException(s"BAD $human -> $newHuman")
 
   if (steps == 0 || walls.contains(newHuman.loc)) human
   else moving3d(newHuman, steps - 1)
