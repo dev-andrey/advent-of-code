@@ -42,7 +42,14 @@ final case class Human(loc: Loc, facing: Facing) { self =>
 val startY = 0
 val startX = openings.filter(_.y == startY).minBy(_.x).x
 
-def movingFlat(human: Human, steps: Int): Human = {
+def follow(human: Human, path: String, move: (Human, Int) => Human): Human =
+  if (path.isEmpty) human
+  else if (path.head == 'R') follow(human.turnRight, path.tail, move)
+  else if (path.head == 'L') follow(human.turnLeft, path.tail, move)
+  else follow(move(human, path.takeWhile(_.isDigit).toInt), path.dropWhile(_.isDigit), move)
+
+// part 1
+def moving2d(human: Human, steps: Int): Human = {
   def up(loc: Loc) =
     if (openings.contains(loc.up) || walls.contains(loc.up)) loc.up
     else loc.copy(y = (walls ++ openings).filter(_.x == loc.x).maxBy(_.y).y)
@@ -67,23 +74,17 @@ def movingFlat(human: Human, steps: Int): Human = {
   }
 
   if (steps == 0 || walls.contains(newLoc)) human
-  else movingFlat(human.copy(loc = newLoc), steps - 1)
+  else moving2d(human.copy(loc = newLoc), steps - 1)
 }
 
-def follow(human: Human, path: String, move: (Human, Int) => Human): Human =
-  // println(s"$human  ::: $path")
-  if (path.isEmpty) human
-  else if (path.head == 'R') follow(human.turnRight, path.tail, move)
-  else if (path.head == 'L') follow(human.turnLeft, path.tail, move)
-  else follow(move(human, path.takeWhile(_.isDigit).toInt), path.dropWhile(_.isDigit), move)
-
-follow(Human(Loc(startX, startY), Facing.Right), path, movingFlat) match {
+follow(Human(Loc(startX, startY), Facing.Right), path, moving2d) match {
   case Human(Loc(x, y), Facing.Right) => 1000 * (y + 1) + 4 * (x + 1) + 0
   case Human(Loc(x, y), Facing.Down)  => 1000 * (y + 1) + 4 * (x + 1) + 1
   case Human(Loc(x, y), Facing.Left)  => 1000 * (y + 1) + 4 * (x + 1) + 2
   case Human(Loc(x, y), Facing.Up)    => 1000 * (y + 1) + 4 * (x + 1) + 3
 }
 
+// part 2
 def moving3d(human: Human, steps: Int): Human = {
   val Human(loc @ Loc(x, y), facing) = human
 
