@@ -9,19 +9,17 @@ def snafuToDec(num: String): Long =
     case res -> '-' => 5 * res - 1
   }
 
-def decToSnafu(long: Long): String =
-  if (long == 0) ""
+@annotation.tailrec
+def decToSnafu(dec: Long, result: String = ""): String =
+  if (dec == 0) result
   else
-    decToSnafu((long + 2) / 5) +
-      (
-        long % 5 match {
-          case 0 => "0"
-          case 1 => "1"
-          case 2 => "2"
-          case 3 => "="
-          case 4 => "-"
-        }
-      )
+    dec % 5 match {
+      case 0 => decToSnafu((dec - 0) / 5, "0" + result)
+      case 1 => decToSnafu((dec - 1) / 5, "1" + result)
+      case 2 => decToSnafu((dec - 2) / 5, "2" + result)
+      case 3 => decToSnafu((dec + 2) / 5, "=" + result)
+      case 4 => decToSnafu((dec + 1) / 5, "-" + result)
+    }
 
 val sum = input.map(snafuToDec).sum
 
