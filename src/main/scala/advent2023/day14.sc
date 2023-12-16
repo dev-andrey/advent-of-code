@@ -30,18 +30,15 @@ def tiltSouth(lines: Seq[String]) = tiltNorth(lines.reverse).reverse
 def tiltEast(lines: Seq[String])  = rotateClockwise(tiltNorth(rotateCounterClockwise(lines)))
 def tiltWest(lines: Seq[String])  = rotateCounterClockwise(tiltNorth(rotateClockwise(lines)))
 
-def findCycle(sequence: Seq[Int], minCycleLength: Int): Option[(Int, Int)] =
-  if sequence.isEmpty || minCycleLength <= 0 then None
-  else
-    {
-      for
-        cycleLength <- minCycleLength to sequence.length / 2
-        startIndex  <- (0 to sequence.length - 2 * cycleLength).view
-        if (startIndex until startIndex + cycleLength)
-          .lazyZip(startIndex + cycleLength until startIndex + 2 * cycleLength)
-          .forall { case (i, j) => sequence(i) == sequence(j) }
-      yield (startIndex, startIndex + cycleLength - 1)
-    }.headOption
+def findCycle(sequence: Seq[Int], minCycleLength: Int): Option[(Int, Int)] = {
+  for
+    cycleLength <- minCycleLength to sequence.length / 2
+    startIndex  <- (0 to sequence.length - 2 * cycleLength).view
+    if (startIndex until startIndex + cycleLength)
+      .lazyZip(startIndex + cycleLength until startIndex + 2 * cycleLength)
+      .forall { case (i, j) => sequence(i) == sequence(j) }
+  yield (startIndex, startIndex + cycleLength - 1)
+}.headOption
 
 @scala.annotation.tailrec
 def spinCycle(times: Long, lines: Seq[String], load: Seq[Int]): Seq[String] =
