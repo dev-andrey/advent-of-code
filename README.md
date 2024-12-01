@@ -34,9 +34,11 @@ scala/
        +---advent2021        Input files for 2021 challenge
        +---advent2022        Input files for 2022 challenge
        +---advent2023        Input files for 2023 challenge
+       +---advent2024        Input files for 2024 challenge
    +---/advent2015           Source code for 2015 challenge
    +---/advent2020           Source code for 2020 challenge    
    +---/advent2021           Source code for 2021 challenge    
    +---/advent2022           Source code for 2022 challenge    
    +---/advent2023           Source code for 2023 challenge    
+   +---/advent2024           Source code for 2024 challenge    
 ```                    
